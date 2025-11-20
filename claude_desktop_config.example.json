@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "qradar": {
+      "command": "python3",
+      "args": ["-m", "src.server"],
+      "cwd": "/absolute/path/to/IBMQradarMCP",
+      "env": {
+        "QRADAR_HOST": "qradar.yourcompany.com",
+        "QRADAR_API_TOKEN": "your-api-token-here",
+        "QRADAR_VERIFY_SSL": "true"
+      }
+    }
+  }
+}
+
