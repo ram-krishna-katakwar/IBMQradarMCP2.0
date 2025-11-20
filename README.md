@@ -57,6 +57,12 @@ A Model Context Protocol (MCP) server that provides comprehensive access to IBM 
 
 ## Installation
 
+### 🚀 Quick Start Guides
+
+- **⚡ 5-Minute Setup**: [QUICK_DEPLOY.md](QUICK_DEPLOY.md) - Get running FAST
+- **📖 Complete Guide**: [GETTING_STARTED.md](GETTING_STARTED.md) - Detailed walkthrough
+- **✅ Deployment Checklist**: [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) - Step-by-step verification
+
 ### Prerequisites
 - Python 3.10 or higher
 - IBM QRadar instance with API access
