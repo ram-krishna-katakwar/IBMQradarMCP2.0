@@ -2,3 +2,7 @@ mcp>=0.9.0
 requests>=2.31.0
 python-dotenv>=1.0.0
 
+# Web UI dependencies (optional)
+flask>=3.0.0
+markdown>=3.5.0
+

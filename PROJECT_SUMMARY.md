@@ -132,37 +132,75 @@ Comprehensive Python client for QRadar REST API:
 
 #### 2. MCP Server (`server.py`)
 
-MCP protocol implementation with 16 tools:
+MCP protocol implementation with **41 tools**:
 
-**Event & Log Tools**:
+**Event & Log Tools** (3 tools):
 - `qradar_search_events` - Custom AQL event queries
 - `qradar_get_recent_events` - Latest security events
 - `qradar_search_flows` - Network flow queries
 
-**Offense Tools**:
+**Offense Tools** (7 tools):
 - `qradar_get_offenses` - List offenses with filters
 - `qradar_get_offense_by_id` - Offense details
+- `qradar_get_offense_notes` - View investigation notes 🆕
+- `qradar_add_offense_note` - Add investigation notes 🆕
+- `qradar_update_offense_status` - Update/close offenses 🆕
+- `qradar_get_closing_reasons` - Get closure options 🆕
+- `qradar_assign_offense` - Assign to analysts 🆕
 
-**Log Source Tools**:
+**Saved Search Tools** (3 tools) 🆕:
+- `qradar_get_saved_searches` - List saved queries
+- `qradar_get_saved_search_by_id` - View search details
+- `qradar_execute_saved_search` - Run saved query
+
+**Log Source Tools** (3 tools):
 - `qradar_get_log_sources` - List agents/collectors
 - `qradar_get_log_source_by_id` - Agent details
 - `qradar_get_log_source_types` - Available types
 
-**Asset Tools**:
+**Asset Tools** (2 tools):
 - `qradar_get_assets` - List network assets
 - `qradar_search_assets_by_ip` - Find by IP
 
-**Reference Data Tools**:
+**Reference Data Tools** (2 tools):
 - `qradar_get_reference_sets` - List threat intel
 - `qradar_get_reference_set_data` - Set contents
 
-**Rule Tools**:
+**Rule Tools** (2 tools):
 - `qradar_get_rules` - List detection rules
 - `qradar_get_rule_by_id` - Rule details
 
-**System Tools**:
+**System Tools** (2 tools):
 - `qradar_get_system_info` - System information
 - `qradar_get_servers` - Server status
+
+**Custom Property Tools** (2 tools) 🆕:
+- `qradar_get_custom_properties` - List custom fields
+- `qradar_get_custom_property_by_id` - Property details
+
+**Domain Management Tools** (2 tools) 🆕:
+- `qradar_get_domains` - List tenants
+- `qradar_get_domain_by_id` - Domain details
+
+**Network Tools** (1 tool) 🆕:
+- `qradar_get_network_hierarchy` - Network topology
+
+**Discovery Tools** (4 tools) 🆕:
+- `qradar_get_ariel_databases` - List data sources
+- `qradar_get_ariel_fields` - List query fields
+- `qradar_get_event_categories` - List event types
+- `qradar_search_event_categories` - Find categories
+
+**Building Block Tools** (2 tools) 🆕:
+- `qradar_get_building_blocks` - List rule components
+- `qradar_get_building_block_by_id` - Block details
+
+**User Tools** (2 tools) 🆕:
+- `qradar_get_users` - List QRadar users
+- `qradar_get_user_by_id` - User details
+
+**Report Tools** (1 tool) 🆕:
+- `qradar_get_reports` - List apps/reports
 
 #### 3. Test Connection Script (`test_connection.py`)
 
@@ -340,23 +378,39 @@ LAST 2 HOURS
 
 ## Metrics
 
-- **Total Lines of Code**: ~1,500
-- **Tools Provided**: 16
-- **API Endpoints Covered**: 15+
-- **Documentation Pages**: 2,500+ lines
+- **Total Lines of Code**: ~2,800
+- **Tools Provided**: 41 (16 core + 25 advanced)
+- **API Endpoints Covered**: 30+
+- **Documentation Pages**: 4,500+ lines
 - **Example Queries**: 50+
+- **Advanced Workflows**: 10+ complete patterns
+
+## Recent Enhancements (v0.2.0)
+
+**Completed**:
+- ✅ Write operations (offense notes, status updates, assignment)
+- ✅ Saved search execution
+- ✅ Custom property management
+- ✅ Domain management for multi-tenancy
+- ✅ Building block access
+- ✅ User management
+- ✅ Event category discovery
+- ✅ Field introspection
+- ✅ Network hierarchy access
+- ✅ Complete incident response workflows
 
 ## Future Enhancements
 
 Potential additions:
-- Write operations (create reference sets, etc.)
-- Streaming event monitoring
-- Custom alert creation
-- Bulk operations
-- Enhanced filtering
-- Data visualization helpers
+- Reference set modification (add/remove IOCs)
+- Streaming event monitoring via websockets
+- Custom alert/rule creation
+- Bulk operations for offense management
+- Data export in multiple formats
+- Integration with external threat intel
 - Multiple QRadar instance support
-- Async query execution
+- Async query execution for better performance
+- Watchlist and monitoring capabilities
 
 ## License
 
@@ -390,6 +444,35 @@ Contributions welcome! Areas for improvement:
 - Python requests library docs
 
 ## Changelog
+
+### Version 0.2.0 (Current - Advanced Features Release)
+
+**Features**:
+- 🎉 **25 new advanced tools** (total: 41 tools)
+- 📝 Enhanced offense management with notes, status updates, assignment
+- 💾 Saved search execution and management
+- 🎨 Custom property discovery and querying
+- 🏢 Domain management for multi-tenancy
+- 🌐 Network hierarchy access
+- 🔍 Discovery tools: fields, categories, databases
+- 🧩 Building block management for rule components
+- 👥 User management for offense assignment
+- 📊 Reports and applications listing
+- ✨ Complete incident response workflows
+
+**Documentation**:
+- New ADVANCED_FEATURES.md (2,000+ lines)
+- Updated README with new capabilities
+- Complete workflow examples
+- Best practices guide
+- Tool comparison tables
+- Security considerations
+
+**API Coverage**:
+- 30+ API endpoints
+- Write operations (notes, status, assignment)
+- Configuration and discovery APIs
+- User and domain management
 
 ### Version 0.1.0 (Initial Release)
 

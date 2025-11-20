@@ -4,6 +4,8 @@ A Model Context Protocol (MCP) server that provides comprehensive access to IBM 
 
 ## Features
 
+### Core Capabilities (16 tools)
+
 ### 🔍 Event & Log Queries
 - **Custom AQL Queries**: Execute Ariel Query Language (AQL) queries against events and flows
 - **Recent Events**: Quickly retrieve the latest security events
@@ -37,12 +39,31 @@ A Model Context Protocol (MCP) server that provides comprehensive access to IBM 
 - **System Info**: QRadar version and configuration
 - **Server Status**: Check QRadar server health
 
+### Advanced Features (25 additional tools) 🆕
+
+- **📝 Offense Management**: Add notes, update status, assign offenses, close with reasons
+- **💾 Saved Searches**: Execute and manage pre-configured AQL queries
+- **🎨 Custom Properties**: Work with user-defined event/flow enrichments
+- **🏢 Domain Management**: Multi-tenant domain configuration and queries
+- **🌐 Network Hierarchy**: Access network topology and segment definitions
+- **🔍 Discovery Tools**: Introspect available fields, categories, and databases
+- **🧩 Building Blocks**: Manage reusable rule components
+- **👥 User Management**: View users for offense assignment and collaboration
+- **📊 Reports**: Access installed applications and report templates
+
+**Total: 41 comprehensive tools for complete security operations**
+
+> **See [ADVANCED_FEATURES.md](ADVANCED_FEATURES.md) for detailed documentation on all advanced capabilities**
+
 ## Installation
 
 ### Prerequisites
 - Python 3.10 or higher
 - IBM QRadar instance with API access
 - API authentication token from QRadar
+- **AI Client**: Claude Desktop, or any local LLM (Ollama, LM Studio, etc.)
+
+> 💡 **New**: You can now use **local open-source LLMs** instead of Claude! See [LOCAL_LLM_GUIDE.md](LOCAL_LLM_GUIDE.md) for setup.
 
 ### Setup
 
@@ -87,7 +108,9 @@ python -m src.server
 
 The server will start and communicate via stdio (standard input/output) as per the MCP protocol.
 
-### Configuration with Claude Desktop
+### Configuration with AI Clients
+
+#### Option 1: Claude Desktop
 
 Add this configuration to your Claude Desktop config file:
 
@@ -110,6 +133,48 @@ Add this configuration to your Claude Desktop config file:
   }
 }
 ```
+
+#### Option 2: Local LLMs (Ollama, LM Studio, etc.) 🆕
+
+**Quick Start with Ollama**:
+```bash
+# 1. Install Ollama
+brew install ollama  # or visit ollama.com
+
+# 2. Download a model
+ollama pull llama3.1:8b
+
+# 3. Run setup script
+./setup_local_llm.sh
+
+# 4. Start the local client (choose one):
+
+# Option A: Web UI (recommended - beautiful interface) 🌟
+./start_webui.sh
+# Then open http://localhost:5000
+
+# Option B: Terminal client (simple, lightweight)
+python3 local_llm_client.py
+```
+
+**Local LLM Interfaces Available**:
+- 🌟 **Web UI** - Beautiful, modern web interface (NEW!)
+- 💻 **Terminal Client** - Command-line interface
+- 🔧 **Continue.dev** - VS Code integration
+- 🖥️ **LM Studio** - Desktop app with GUI
+- 🌐 **Open WebUI** - Advanced web interface
+- 🔐 **Jan.ai** - Privacy-focused desktop app
+
+**Supported Local LLMs**:
+- ✅ Ollama (recommended)
+- ✅ LM Studio
+- ✅ Continue.dev (VS Code)
+- ✅ Open WebUI
+- ✅ Jan.ai
+
+> 📖 **Guides**: 
+> - [WEB_UI_GUIDE.md](WEB_UI_GUIDE.md) - Beautiful web interface setup 🌟
+> - [LOCAL_LLM_GUIDE.md](LOCAL_LLM_GUIDE.md) - Complete local LLM guide
 
 ## Available Tools
 
@@ -385,6 +450,19 @@ For issues and questions:
 3. Open an issue on GitHub
 
 ## Changelog
+
+### Version 0.2.0
+- 🎉 **25 new advanced tools** added (total: 41 tools)
+- ✨ Enhanced offense management: notes, status updates, assignment, closing
+- 💾 Saved search execution and management
+- 🎨 Custom property discovery and querying
+- 🏢 Domain management for multi-tenancy
+- 🌐 Network hierarchy access
+- 🔍 Discovery tools: fields, categories, databases
+- 🧩 Building block management
+- 👥 User management for assignment
+- 📊 Reports and applications listing
+- 📚 Comprehensive advanced features documentation
 
 ### Version 0.1.0
 - Initial release

@@ -472,3 +472,326 @@ class QRadarClient:
         """
         return self._make_request("GET", f"/analytics/rules/{rule_id}")
 
+    # ==================== Saved Searches ====================
+    
+    def get_saved_searches(self) -> List[Dict[str, Any]]:
+        """
+        Get all saved Ariel searches
+        
+        Returns:
+            List of saved searches
+        """
+        searches = self._make_request("GET", "/ariel/saved_searches")
+        return searches if isinstance(searches, list) else [searches]
+    
+    def get_saved_search_by_id(self, search_id: str) -> Dict[str, Any]:
+        """
+        Get specific saved search by ID
+        
+        Args:
+            search_id: Saved search ID
+            
+        Returns:
+            Saved search details
+        """
+        return self._make_request("GET", f"/ariel/saved_searches/{search_id}")
+    
+    def execute_saved_search(
+        self, 
+        search_id: str,
+        max_wait: int = 300
+    ) -> Dict[str, Any]:
+        """
+        Execute a saved search
+        
+        Args:
+            search_id: Saved search ID
+            max_wait: Maximum time to wait for results
+            
+        Returns:
+            Search results
+        """
+        # Get saved search details to get the query
+        saved_search = self.get_saved_search_by_id(search_id)
+        query = saved_search.get("aql")
+        
+        if not query:
+            raise Exception(f"Saved search {search_id} does not have an AQL query")
+        
+        # Execute the query
+        return self.search_events(query, max_wait=max_wait)
+
+    # ==================== Offense Notes ====================
+    
+    def get_offense_notes(self, offense_id: int) -> List[Dict[str, Any]]:
+        """
+        Get notes for a specific offense
+        
+        Args:
+            offense_id: Offense ID
+            
+        Returns:
+            List of offense notes
+        """
+        notes = self._make_request("GET", f"/siem/offenses/{offense_id}/notes")
+        return notes if isinstance(notes, list) else [notes]
+    
+    def add_offense_note(self, offense_id: int, note_text: str) -> Dict[str, Any]:
+        """
+        Add a note to an offense
+        
+        Args:
+            offense_id: Offense ID
+            note_text: Note text to add
+            
+        Returns:
+            Created note details
+        """
+        return self._make_request(
+            "POST",
+            f"/siem/offenses/{offense_id}/notes",
+            params={"note_text": note_text}
+        )
+    
+    def update_offense_status(
+        self, 
+        offense_id: int, 
+        status: str,
+        closing_reason_id: Optional[int] = None
+    ) -> Dict[str, Any]:
+        """
+        Update offense status
+        
+        Args:
+            offense_id: Offense ID
+            status: New status (OPEN, HIDDEN, CLOSED)
+            closing_reason_id: Required if status is CLOSED
+            
+        Returns:
+            Updated offense details
+        """
+        params = {"status": status}
+        if closing_reason_id is not None:
+            params["closing_reason_id"] = closing_reason_id
+        
+        return self._make_request(
+            "POST",
+            f"/siem/offenses/{offense_id}",
+            params=params
+        )
+    
+    def get_closing_reasons(self) -> List[Dict[str, Any]]:
+        """
+        Get available offense closing reasons
+        
+        Returns:
+            List of closing reasons
+        """
+        reasons = self._make_request("GET", "/siem/offense_closing_reasons")
+        return reasons if isinstance(reasons, list) else [reasons]
+    
+    def assign_offense(self, offense_id: int, assigned_to: str) -> Dict[str, Any]:
+        """
+        Assign an offense to a user
+        
+        Args:
+            offense_id: Offense ID
+            assigned_to: Username to assign to
+            
+        Returns:
+            Updated offense details
+        """
+        return self._make_request(
+            "POST",
+            f"/siem/offenses/{offense_id}",
+            params={"assigned_to": assigned_to}
+        )
+
+    # ==================== Custom Properties ====================
+    
+    def get_custom_properties(self) -> List[Dict[str, Any]]:
+        """
+        Get all custom properties (event, flow, and offense properties)
+        
+        Returns:
+            List of custom properties
+        """
+        # Get event properties
+        event_props = self._make_request("GET", "/config/event_sources/custom_properties/property_expressions")
+        return event_props if isinstance(event_props, list) else [event_props]
+    
+    def get_custom_property_by_id(self, property_id: int) -> Dict[str, Any]:
+        """
+        Get specific custom property by ID
+        
+        Args:
+            property_id: Custom property ID
+            
+        Returns:
+            Custom property details
+        """
+        return self._make_request(
+            "GET",
+            f"/config/event_sources/custom_properties/property_expressions/{property_id}"
+        )
+
+    # ==================== Domains ====================
+    
+    def get_domains(self) -> List[Dict[str, Any]]:
+        """
+        Get all domains (for multi-tenancy)
+        
+        Returns:
+            List of domains
+        """
+        domains = self._make_request("GET", "/config/domain_management/domains")
+        return domains if isinstance(domains, list) else [domains]
+    
+    def get_domain_by_id(self, domain_id: int) -> Dict[str, Any]:
+        """
+        Get specific domain by ID
+        
+        Args:
+            domain_id: Domain ID
+            
+        Returns:
+            Domain details
+        """
+        return self._make_request("GET", f"/config/domain_management/domains/{domain_id}")
+
+    # ==================== Network Hierarchy ====================
+    
+    def get_network_hierarchy(self) -> List[Dict[str, Any]]:
+        """
+        Get network hierarchy (network objects/groups)
+        
+        Returns:
+            List of network objects
+        """
+        networks = self._make_request("GET", "/config/network_hierarchy/networks")
+        return networks if isinstance(networks, list) else [networks]
+
+    # ==================== Search Filters ====================
+    
+    def get_ariel_databases(self) -> List[Dict[str, Any]]:
+        """
+        Get available Ariel databases
+        
+        Returns:
+            List of databases (events, flows)
+        """
+        databases = self._make_request("GET", "/ariel/databases")
+        return databases if isinstance(databases, list) else [databases]
+    
+    def get_ariel_fields(self, database_name: str = "events") -> List[Dict[str, Any]]:
+        """
+        Get available fields for Ariel queries
+        
+        Args:
+            database_name: Database name (events or flows)
+            
+        Returns:
+            List of available fields
+        """
+        fields = self._make_request("GET", f"/ariel/databases/{database_name}/fields")
+        return fields if isinstance(fields, list) else [fields]
+
+    # ==================== Event and Flow Categories ====================
+    
+    def get_event_categories(self) -> List[Dict[str, Any]]:
+        """
+        Get all event categories
+        
+        Returns:
+            List of event categories
+        """
+        categories = self._make_request("GET", "/data_classification/qid_records")
+        return categories if isinstance(categories, list) else [categories]
+    
+    def search_event_categories(self, search_term: str) -> List[Dict[str, Any]]:
+        """
+        Search event categories by name
+        
+        Args:
+            search_term: Term to search for in category names
+            
+        Returns:
+            Matching categories
+        """
+        categories = self.get_event_categories()
+        search_lower = search_term.lower()
+        return [
+            cat for cat in categories 
+            if search_lower in cat.get("name", "").lower()
+        ]
+
+    # ==================== Building Blocks ====================
+    
+    def get_building_blocks(
+        self,
+        filter_query: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Get building blocks (rule building blocks)
+        
+        Args:
+            filter_query: Filter string
+            
+        Returns:
+            List of building blocks
+        """
+        params = {}
+        if filter_query:
+            params["filter"] = filter_query
+        
+        blocks = self._make_request("GET", "/analytics/building_blocks", params=params)
+        return blocks if isinstance(blocks, list) else [blocks]
+    
+    def get_building_block_by_id(self, block_id: int) -> Dict[str, Any]:
+        """
+        Get specific building block by ID
+        
+        Args:
+            block_id: Building block ID
+            
+        Returns:
+            Building block details
+        """
+        return self._make_request("GET", f"/analytics/building_blocks/{block_id}")
+
+    # ==================== User Management ====================
+    
+    def get_users(self) -> List[Dict[str, Any]]:
+        """
+        Get all QRadar users
+        
+        Returns:
+            List of users
+        """
+        users = self._make_request("GET", "/config/access/users")
+        return users if isinstance(users, list) else [users]
+    
+    def get_user_by_id(self, user_id: int) -> Dict[str, Any]:
+        """
+        Get specific user by ID
+        
+        Args:
+            user_id: User ID
+            
+        Returns:
+            User details
+        """
+        return self._make_request("GET", f"/config/access/users/{user_id}")
+
+    # ==================== Reports ====================
+    
+    def get_reports(self) -> List[Dict[str, Any]]:
+        """
+        Get all reports
+        
+        Returns:
+            List of reports
+        """
+        reports = self._make_request("GET", "/gui_app_framework/applications")
+        return reports if isinstance(reports, list) else [reports]
+
