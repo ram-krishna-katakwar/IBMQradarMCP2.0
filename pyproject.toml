@@ -2,7 +2,7 @@
 name = "ibm-qradar-mcp"
 version = "0.2.0"
 description = "MCP server for IBM QRadar - comprehensive security operations with 41 tools"
-authors = [{name = "Your Name"}]
+authors = [{name = "Ram Krishna Katakwar"}]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

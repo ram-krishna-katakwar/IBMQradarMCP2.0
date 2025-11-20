@@ -1,4 +1,9 @@
-"""IBM QRadar API Client"""
+"""IBM QRadar API Client
+
+Author: Ram Krishna Katakwar
+Version: 0.2.0
+License: MIT
+"""
 import json
 import time
 from typing import Dict, List, Optional, Any

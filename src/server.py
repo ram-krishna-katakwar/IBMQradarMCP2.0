@@ -1,6 +1,10 @@
 """IBM QRadar MCP Server
 
 This MCP server provides tools to interact with IBM QRadar for querying logs, events, and agents.
+
+Author: Ram Krishna Katakwar
+Version: 0.2.0
+License: MIT
 """
 import os
 import json

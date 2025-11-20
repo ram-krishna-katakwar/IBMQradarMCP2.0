@@ -512,7 +512,7 @@ Contributions welcome! Areas for improvement:
 
 **Last Updated**: November 2024
 
-**Maintained By**: Community
+**Author**: Ram Krishna Katakwar
 
-**Version**: 0.1.0
+**Version**: 0.2.0
 

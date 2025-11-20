@@ -2,6 +2,10 @@
 """
 Local LLM Client for IBM QRadar MCP
 Connects local LLMs (Ollama) to the QRadar MCP server
+
+Author: Ram Krishna Katakwar
+Version: 1.0.0
+License: MIT
 """
 
 import subprocess

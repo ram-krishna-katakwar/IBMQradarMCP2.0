@@ -2,6 +2,10 @@
 """
 Web UI for IBM QRadar MCP with Local LLM
 Beautiful, modern interface for interacting with QRadar through local LLMs
+
+Author: Ram Krishna Katakwar
+Version: 1.0.0
+License: MIT
 """
 
 from flask import Flask, render_template, request, jsonify, stream_with_context, Response

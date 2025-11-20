@@ -440,6 +440,10 @@ This MCP server uses IBM QRadar REST API v15.0. For more information:
 - [QRadar API Samples](https://github.com/IBM/api-samples)
 - [AQL Guide](https://www.ibm.com/docs/en/qradar-common?topic=structure-aql-overview)
 
+## Author
+
+**Ram Krishna Katakwar**
+
 ## License
 
 See LICENSE file for details.
